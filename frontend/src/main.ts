@@ -15,7 +15,12 @@ const result = document.querySelector<HTMLParagraphElement>("#result")!;
 
 greetBtn.addEventListener("click", async () => {
   const name = nameInput.value || "World";
-  const res = await fetch(`/api/hello?name=${encodeURIComponent(name)}`);
-  const data = await res.json();
-  result.textContent = data.message;
+  try {
+    const res = await fetch(`/api/hello?name=${encodeURIComponent(name)}`);
+    const data = await res.json();
+    result.textContent = data.message;
+  } catch {
+    // Fallback when backend is unavailable (e.g., GitHub Pages)
+    result.textContent = `Hello, ${name}!`;
+  }
 });

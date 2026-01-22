@@ -1,0 +1,6 @@
+(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))s(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const c of t.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&s(c)}).observe(document,{childList:!0,subtree:!0});function n(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?t.credentials="include":e.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function s(e){if(e.ep)return;e.ep=!0;const t=n(e);fetch(e.href,t)}})();const l=document.querySelector("#app");l.innerHTML=`
+  <h1>Hello App</h1>
+  <input type="text" id="name" placeholder="Enter your name" />
+  <button id="greet">Greet</button>
+  <p id="result"></p>
+`;const u=document.querySelector("#name"),a=document.querySelector("#greet"),i=document.querySelector("#result");a.addEventListener("click",async()=>{const o=u.value||"World";try{const n=await(await fetch(`/api/hello?name=${encodeURIComponent(o)}`)).json();i.textContent=n.message}catch{i.textContent=`Hello, ${o}!`}});
